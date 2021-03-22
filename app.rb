@@ -1,9 +1,13 @@
 require_relative 'formatter'
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 class App
 
   def call(env)
     @request = Rack::Request.new(env)
+<<<<<<< HEAD
     response
     [status, headers, body]
   end
@@ -43,6 +47,29 @@ class App
   def unknown_format
     @status_code = 400
     @message = "Unknown format"
+=======
+
+    return response(404, "Page not found") unless request_action?
+
+    format_date = Formatter.new(@request.params['format'])
+
+    if format_date.success?
+      response(200, format_date.format_time)
+    else
+      response(400, format_date.invalid_format)
+    end
+
+  end
+
+  private
+
+  def response(status, message)
+    [status, { 'Content-Type' => 'text/plain' }, ["#{message}\n"]]
+  end
+
+  def request_action?
+    @request.path == '/time'
+>>>>>>> main
   end
 
 end
