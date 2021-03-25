@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 require_relative 'formatter'
+
 class App
 
   def call(env)
